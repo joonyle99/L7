@@ -10339,7 +10339,7 @@ GameObject:
   - component: {fileID: 7542643634518930431}
   - component: {fileID: -6300384890186845311}
   m_Layer: 0
-  m_Name: Unlock_Myth
+  m_Name: UnlockEffect_Myth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -25138,7 +25138,7 @@ GameObject:
   - component: {fileID: 2115918844640808359}
   - component: {fileID: 2592651281421405052}
   m_Layer: 0
-  m_Name: Unlock_Epic_Legendary
+  m_Name: UnlockEffect_Epic_Legendary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

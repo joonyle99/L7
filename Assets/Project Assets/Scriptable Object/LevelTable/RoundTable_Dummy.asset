@@ -16,11 +16,11 @@ MonoBehaviour:
   - enemyHeroes:
     - data: {fileID: 11400000, guid: 55c2abf7e5074564693ace92115dc6cb, type: 2}
       level: 1
-    - data: {fileID: 11400000, guid: a76a033c3389e844480a645f6e727338, type: 2}
+    - data: {fileID: 0}
       level: 1
-    - data: {fileID: 11400000, guid: 05e2aa25dc5d6724491aa77627e412d5, type: 2}
+    - data: {fileID: 0}
       level: 1
     - data: {fileID: 0}
       level: 3
-    - data: {fileID: 11400000, guid: db1b1294894e620459df5b04265b9e95, type: 2}
+    - data: {fileID: 0}
       level: 3
