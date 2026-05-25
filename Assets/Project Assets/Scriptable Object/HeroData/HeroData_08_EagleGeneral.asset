@@ -17,7 +17,7 @@ MonoBehaviour:
   Prefab: {fileID: 6903736180131287835, guid: 47f2ec97274669741856bd648aee81ba, type: 3}
   IconAnchoredPos: {x: 0, y: 0}
   BaseAttacks: 030000000600000009000000
-  BaseHealths: 1e0000000a0000000f000000
+  BaseHealths: 050000000a0000000f000000
   Grade: 2
   Ability:
     Trigger: 1
@@ -26,6 +26,7 @@ MonoBehaviour:
     Values: 010000000200000003000000
     Probability: 100
     FlavorText: "\uBD80\uC5F0 \uC124\uBA85\uC785\uB2C8\uB2E4"
+    SummonHero: {fileID: 0}
   Sprites:
   - {fileID: 8581482996568775792, guid: 79185267031127a46b7f7a5dacaf81ae, type: 3}
   - {fileID: -292620653305571187, guid: 79185267031127a46b7f7a5dacaf81ae, type: 3}

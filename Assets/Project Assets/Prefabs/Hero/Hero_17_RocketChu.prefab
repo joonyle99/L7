@@ -148,7 +148,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 8edb9ea13de95c7468d687f0b253c330, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 813097801239471240}
   - component: {fileID: 4799345774497862862}
   m_Layer: 0
-  m_Name: Hero_18_RocketChu
+  m_Name: Hero_17_RocketChu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

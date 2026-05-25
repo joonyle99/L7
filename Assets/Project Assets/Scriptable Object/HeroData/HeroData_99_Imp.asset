@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dba8cbe1c087b64d93282040cbb94f9, type: 3}
-  m_Name: HeroData_15_Batman
+  m_Name: HeroData_99_Imp
   m_EditorClassIdentifier: Assembly-CSharp::HeroData
-  Icon: {fileID: 21300000, guid: 20ecb0c6b51c3b548afa514f34f30cfa, type: 3}
-  Name: "\uBC30\uD2B8\uB9E8"
-  Prefab: {fileID: 6903736180131287835, guid: 96ce3800846ff364ab41eb360d0e406c, type: 3}
+  Icon: {fileID: -532243056, guid: cdda0b180f5560d4384a35002c57c4ca, type: 3}
+  Name: "\uC784\uD504"
+  Prefab: {fileID: 6903736180131287835, guid: 902dbebc20210464fb0806a32c8f60ac, type: 3}
   IconAnchoredPos: {x: 0, y: 0}
   BaseAttacks: 030000000600000009000000
   BaseHealths: 050000000a0000000f000000
-  Grade: 4
+  Grade: 0
   Ability:
-    Trigger: 4
-    Effect: 6
-    Target: 13
+    Trigger: 11
+    Effect: 4
+    Target: 12
     Values: 010000000200000003000000
     Probability: 100
     FlavorText: "\uBD80\uC5F0 \uC124\uBA85\uC785\uB2C8\uB2E4"
     SummonHero: {fileID: 0}
   Sprites:
-  - {fileID: 21300000, guid: 20ecb0c6b51c3b548afa514f34f30cfa, type: 3}
-  - {fileID: 21300000, guid: 4a2b96f5c1ca35849b83ff982fe9b9cc, type: 3}
+  - {fileID: -532243056, guid: cdda0b180f5560d4384a35002c57c4ca, type: 3}
+  - {fileID: -860040883, guid: cdda0b180f5560d4384a35002c57c4ca, type: 3}
   MaxLevel: 3
   MaxStack: 3

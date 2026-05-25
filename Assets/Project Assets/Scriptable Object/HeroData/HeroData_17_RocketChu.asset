@@ -26,6 +26,7 @@ MonoBehaviour:
     Values: 010000000200000003000000
     Probability: 100
     FlavorText: "\uBD80\uC5F0 \uC124\uBA85\uC785\uB2C8\uB2E4"
+    SummonHero: {fileID: 0}
   Sprites:
   - {fileID: -4748693254668525156, guid: a69703bb66d116b4f8ddac641151ebd6, type: 3}
   - {fileID: -1163296691820380106, guid: a69703bb66d116b4f8ddac641151ebd6, type: 3}

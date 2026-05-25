@@ -67,7 +67,6 @@ public static class LuckyExtensions
             AbilityEffect.BonusAttack          => $"{t}에게 {value}회 추가 공격",
             AbilityEffect.Smash                => $"{t}에게 강타 ({value} 데미지)",
             AbilityEffect.Faint                => $"{t} {value}턴 기절",
-            AbilityEffect.Push                 => $"{t} {value}칸 밀기",
             AbilityEffect.Pull                 => $"{t} {value}칸 당기기",
             AbilityEffect.Summon               => $"유닛 {value}개 소환",
             AbilityEffect.EarnGold             => $"{Sprite("Gold")} 골드 +{value}",
