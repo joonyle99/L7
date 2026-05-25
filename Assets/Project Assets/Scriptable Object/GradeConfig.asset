@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5865979d60814f14fb6c57018e95005d, type: 3}
+  m_Name: GradeConfig
+  m_EditorClassIdentifier: Assembly-CSharp::GradeConfig
+  _gradeVisuals:
+  - Grade: 0
+    MainIcon: {fileID: 3950454065651877675, guid: 3ff37dfb55bfc784aaabb4ae9886324b, type: 3}
+    SubIcon: {fileID: -742627407806856013, guid: c932450b804969c41a6f482ffad1724c, type: 3}
+    Color: {r: 0, g: 0, b: 0, a: 0.56078434}
+    TrailColor: {r: 1, g: 1, b: 1, a: 1}
+  - Grade: 1
+    MainIcon: {fileID: -4776926992297955027, guid: ee3f3d986a8df544cbb9a13c240233e8, type: 3}
+    SubIcon: {fileID: -4547159204396404353, guid: 8bacc40179e28534c98a4b8180f82963, type: 3}
+    Color: {r: 0, g: 0.827451, b: 1, a: 0.56078434}
+    TrailColor: {r: 0, g: 0.827451, b: 1, a: 1}
+  - Grade: 2
+    MainIcon: {fileID: 2189679004935692881, guid: 2415ed627f5b97943843facc5a76ab64, type: 3}
+    SubIcon: {fileID: -2827283482194665175, guid: 71ca897cdd6348140b4a31013891dc1f, type: 3}
+    Color: {r: 0.8392157, g: 0, b: 1, a: 0.56078434}
+    TrailColor: {r: 0.8392157, g: 0, b: 1, a: 1}
+  - Grade: 3
+    MainIcon: {fileID: -8744262028431766388, guid: e6140b1324aaa654b852f29d5d51bbcf, type: 3}
+    SubIcon: {fileID: 8439791262658147555, guid: 9530d08aa91cb8a46b422786c6a96db8, type: 3}
+    Color: {r: 1, g: 0.7607843, b: 0, a: 0.56078434}
+    TrailColor: {r: 1, g: 0.7607843, b: 0, a: 1}
+  - Grade: 4
+    MainIcon: {fileID: -5373174832484467656, guid: 5a509762342f4ae448a4aa9306cf7c9e, type: 3}
+    SubIcon: {fileID: -4788648154744539147, guid: 50eb058f92f42ec4890872f4f4b6bdd7, type: 3}
+    Color: {r: 1, g: 0.6392157, b: 0, a: 0.56078434}
+    TrailColor: {r: 1, g: 0.6392157, b: 0, a: 1}

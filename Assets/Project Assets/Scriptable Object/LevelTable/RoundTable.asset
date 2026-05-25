@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ae212a78990d2c47967fc2fc2e61bc2, type: 3}
+  m_Name: RoundTable
+  m_EditorClassIdentifier: Assembly-CSharp::RoundTable
+  _rounds:
+  - enemyHeroes:
+    - data: {fileID: 11400000, guid: 034ae38286bda8946a0eaa10c40df35a, type: 2}
+      level: 1
+    - data: {fileID: 11400000, guid: 034ae38286bda8946a0eaa10c40df35a, type: 2}
+      level: 1
+    - data: {fileID: 11400000, guid: 034ae38286bda8946a0eaa10c40df35a, type: 2}
+      level: 1
+    - data: {fileID: 11400000, guid: 034ae38286bda8946a0eaa10c40df35a, type: 2}
+      level: 1
+    - data: {fileID: 11400000, guid: 976184232c1fc804cb116a1783d4ffb1, type: 2}
+      level: 1

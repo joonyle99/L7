@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dba8cbe1c087b64d93282040cbb94f9, type: 3}
+  m_Name: HeroData_10_Sheriff
+  m_EditorClassIdentifier: Assembly-CSharp::HeroData
+  Icon: {fileID: 489971803130668951, guid: 49de110d39cc8024a8e938059b9ed5e2, type: 3}
+  Name: "\uBCF4\uC548\uAD00"
+  Prefab: {fileID: 6903736180131287835, guid: 36cd8ba42fcf72b4aa8e6dab3407f903, type: 3}
+  IconAnchoredPos: {x: 0, y: 0}
+  BaseAttacks: 030000000600000009000000
+  BaseHealths: 1e0000000a0000000f000000
+  Grade: 3
+  Ability:
+    Trigger: 2
+    Effect: 4
+    Target: 10
+    Values: 010000000200000003000000
+    Probability: 100
+    FlavorText: "\uBD80\uC5F0 \uC124\uBA85\uC785\uB2C8\uB2E4"
+  Sprites:
+  - {fileID: 489971803130668951, guid: 49de110d39cc8024a8e938059b9ed5e2, type: 3}
+  - {fileID: -4321303504881559701, guid: 49de110d39cc8024a8e938059b9ed5e2, type: 3}
+  MaxLevel: 3
+  MaxStack: 3

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dba8cbe1c087b64d93282040cbb94f9, type: 3}
+  m_Name: HeroData_17_RocketChu
+  m_EditorClassIdentifier: Assembly-CSharp::HeroData
+  Icon: {fileID: -4748693254668525156, guid: a69703bb66d116b4f8ddac641151ebd6, type: 3}
+  Name: "\uB85C\uCF13\uCE04"
+  Prefab: {fileID: 6903736180131287835, guid: 3fe7d2f7d96e1ef49859df56495dc533, type: 3}
+  IconAnchoredPos: {x: 0, y: 0}
+  BaseAttacks: 030000000600000009000000
+  BaseHealths: 050000000a0000000f000000
+  Grade: 4
+  Ability:
+    Trigger: 11
+    Effect: 4
+    Target: 17
+    Values: 010000000200000003000000
+    Probability: 100
+    FlavorText: "\uBD80\uC5F0 \uC124\uBA85\uC785\uB2C8\uB2E4"
+  Sprites:
+  - {fileID: -4748693254668525156, guid: a69703bb66d116b4f8ddac641151ebd6, type: 3}
+  - {fileID: -1163296691820380106, guid: a69703bb66d116b4f8ddac641151ebd6, type: 3}
+  MaxLevel: 3
+  MaxStack: 3

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dba8cbe1c087b64d93282040cbb94f9, type: 3}
+  m_Name: HeroData_12_TigerMaster
+  m_EditorClassIdentifier: Assembly-CSharp::HeroData
+  Icon: {fileID: -3513894119428180761, guid: 2eb3bf2ed35532d45a99aa602764d3d6, type: 3}
+  Name: "\uD638\uB791\uC774\uC0AC\uBD80"
+  Prefab: {fileID: 6903736180131287835, guid: 930c1dd9ff195db4c8052aaa5897cec3, type: 3}
+  IconAnchoredPos: {x: 0, y: 0}
+  BaseAttacks: 030000000600000009000000
+  BaseHealths: 1e0000000a0000000f000000
+  Grade: 3
+  Ability:
+    Trigger: 4
+    Effect: 5
+    Target: 13
+    Values: 010000000200000003000000
+    Probability: 100
+    FlavorText: "\uBD80\uC5F0 \uC124\uBA85\uC785\uB2C8\uB2E4"
+  Sprites:
+  - {fileID: -3513894119428180761, guid: 2eb3bf2ed35532d45a99aa602764d3d6, type: 3}
+  - {fileID: 7982869156796119620, guid: 2eb3bf2ed35532d45a99aa602764d3d6, type: 3}
+  MaxLevel: 3
+  MaxStack: 3

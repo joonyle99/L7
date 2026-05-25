@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Hero
+  - Water
+  - UI
+  - SpritePiece
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background3
+    uniqueID: 1498087721
+    locked: 0
+  - name: Background2
+    uniqueID: 1874147313
+    locked: 0
+  - name: Background1
+    uniqueID: 3758723955
+    locked: 0
+  - name: UnderDefault3
+    uniqueID: 1856574019
+    locked: 0
+  - name: UnderDefault2
+    uniqueID: 3437315497
+    locked: 0
+  - name: UnderDefault1
+    uniqueID: 993347441
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: OverDefault1
+    uniqueID: 3140276007
+    locked: 0
+  - name: OverDefault2
+    uniqueID: 86276165
+    locked: 0
+  - name: OverDefault3
+    uniqueID: 2188449411
+    locked: 0
+  - name: Forground1
+    uniqueID: 866313997
+    locked: 0
+  - name: Forground2
+    uniqueID: 3195953153
+    locked: 0
+  - name: Forground3
+    uniqueID: 3128326209
+    locked: 0
+  - name: VFX
+    uniqueID: 2614390885
+    locked: 0
+  - name: UI
+    uniqueID: 3253811293
+    locked: 0
+  m_RenderingLayers:
+  - Default

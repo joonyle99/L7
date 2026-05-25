@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dba8cbe1c087b64d93282040cbb94f9, type: 3}
+  m_Name: HeroData_07_WolfWarrior
+  m_EditorClassIdentifier: Assembly-CSharp::HeroData
+  Icon: {fileID: 2607412774998584399, guid: 94103197d008d3f489e322b9ed798247, type: 3}
+  Name: "\uB291\uB300\uC804\uC0AC"
+  Prefab: {fileID: 6903736180131287835, guid: f8d291a1ab2a03a419eb3f7d4e56d966, type: 3}
+  IconAnchoredPos: {x: 0, y: 0}
+  BaseAttacks: 030000000600000009000000
+  BaseHealths: 1e0000000a0000000f000000
+  Grade: 2
+  Ability:
+    Trigger: 8
+    Effect: 3
+    Target: 5
+    Values: 010000000200000003000000
+    Probability: 100
+    FlavorText: "\uBD80\uC5F0 \uC124\uBA85\uC785\uB2C8\uB2E4"
+  Sprites:
+  - {fileID: 2607412774998584399, guid: 94103197d008d3f489e322b9ed798247, type: 3}
+  - {fileID: -7213239738116811963, guid: 94103197d008d3f489e322b9ed798247, type: 3}
+  MaxLevel: 3
+  MaxStack: 3

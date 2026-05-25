@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700a95bda905feb48a9c66be5403573e, type: 3}
+  m_Name: SummonTable
+  m_EditorClassIdentifier: Assembly-CSharp::SummonTable
+  _unlockEntries:
+  - grade: 0
+    unlockRound: 1
+  - grade: 1
+    unlockRound: 1
+  - grade: 2
+    unlockRound: 2
+  - grade: 3
+    unlockRound: 2
+  - grade: 4
+    unlockRound: 3
+  _roundEntries:
+  - round: 1
+    gradeChanceEntries:
+    - grade: 0
+      chance: 0.7
+    - grade: 1
+      chance: 0.3
+  - round: 2
+    gradeChanceEntries:
+    - grade: 0
+      chance: 0.15
+    - grade: 1
+      chance: 0.3
+    - grade: 2
+      chance: 0.35
+    - grade: 3
+      chance: 0.2
+  - round: 3
+    gradeChanceEntries:
+    - grade: 0
+      chance: 0.1
+    - grade: 1
+      chance: 0.1
+    - grade: 2
+      chance: 0.2
+    - grade: 3
+      chance: 0.3
+    - grade: 4
+      chance: 0.3
+  _maxRound: 3
