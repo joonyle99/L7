@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 181236605332432888}
   - component: {fileID: 3732661603037314957}
   m_Layer: 0
-  m_Name: Leftking_End
+  m_Name: RoundEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

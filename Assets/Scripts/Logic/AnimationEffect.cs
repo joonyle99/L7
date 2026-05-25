@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GameStartEffect1 : MonoBehaviour, IAnimationEventHandler
+public class AnimationEffect : MonoBehaviour, IAnimationEventHandler
 {
     private Action _onComplete;
 

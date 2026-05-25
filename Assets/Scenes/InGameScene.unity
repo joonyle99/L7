@@ -1995,6 +1995,82 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &289049771
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 327246393054312900, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_Name
+      value: RoundEndEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 327246393054312900, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347186943269758270, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+--- !u!1 &289049772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 327246393054312900, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+  m_PrefabInstance: {fileID: 289049771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &289049773 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2116683102325065364, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+  m_PrefabInstance: {fileID: 289049771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &289049774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4809290681646973073, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
+  m_PrefabInstance: {fileID: 289049771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &295953470
 GameObject:
   m_ObjectHideFlags: 0
@@ -10709,7 +10785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InGameManager
   _cameraController: {fileID: 519420036}
   _uiController: {fileID: 1540225788}
-  _gameStartEffectPrefab: {fileID: 5661907519350644587, guid: 8b34a59903ccde8448c90645ffae5dfe, type: 3}
+  _gameStartEffectPrefab: {fileID: 7033239987520807445, guid: 8b34a59903ccde8448c90645ffae5dfe, type: 3}
   _prepareCanvas: {fileID: 711233022}
   _prepareStage: {fileID: 608347034}
   _heroDatabase: {fileID: 11400000, guid: bf7903f07bd553d468831fbb453512e2, type: 2}
@@ -10728,8 +10804,8 @@ MonoBehaviour:
   _statBuffPopupPrefab: {fileID: 4910592039385695480, guid: 59d8293aeac0cab4faf1d9867eca410b, type: 3}
   _heroSellZone: {fileID: 217193380}
   _unlockEffectPrefabs:
-  - {fileID: 2592651281421405052, guid: beb1afa508140434eb5aab2283e48702, type: 3}
-  - {fileID: -6300384890186845311, guid: 22f6daecf9072e7478da065c591c9586, type: 3}
+  - {fileID: 2286169010714311493, guid: beb1afa508140434eb5aab2283e48702, type: 3}
+  - {fileID: 4350071275258633732, guid: 22f6daecf9072e7478da065c591c9586, type: 3}
   _startGold: 30
   _sellPrice: 1
   _startToken: 3
@@ -10745,6 +10821,7 @@ MonoBehaviour:
   _enemySlotController: {fileID: 692031988}
   _battleKingController: {fileID: 1508828600}
   _battlePlayer: {fileID: 129982516}
+  _roundEndEffect: {fileID: 8683130075959395269, guid: d7f0cad9e7f91274a96405981ddc95bb, type: 3}
 --- !u!1 &1657210531
 GameObject:
   m_ObjectHideFlags: 0
@@ -12938,6 +13015,12 @@ MonoBehaviour:
     _prefab: Assets/Project Assets/Prefabs/Hero/Hero_01_Bandit.prefab
   - _gameObject: {fileID: 549470761}
     _prefab: Assets/Project Assets/Prefabs/VFX/DustPrefab.prefab
+  - _gameObject: {fileID: 289049772}
+    _prefab: Assets/Project Assets/Prefabs/RoundEndEffect.prefab
+  - _gameObject: {fileID: 289049773}
+    _prefab: Assets/Project Assets/Prefabs/RoundEnd.prefab
+  - _gameObject: {fileID: 289049774}
+    _prefab: Assets/Project Assets/Prefabs/VFX/Fragment_end.prefab
 --- !u!4 &2043098986
 Transform:
   m_ObjectHideFlags: 11
@@ -13580,3 +13663,4 @@ SceneRoots:
   - {fileID: 173237704}
   - {fileID: 129982515}
   - {fileID: 1211810884}
+  - {fileID: 289049771}

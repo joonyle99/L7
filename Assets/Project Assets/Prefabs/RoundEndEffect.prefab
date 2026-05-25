@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6347186943269758270}
+  - component: {fileID: 8683130075959395269}
   m_Layer: 0
-  m_Name: Leftking_End_Effect
+  m_Name: RoundEndEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 7363963880058300539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8683130075959395269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327246393054312900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01077794a59cca845a6618336a96c759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoundEndEffect
+  _animator: {fileID: 2455253242246335586}
 --- !u!1001 &2346707921164512154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,7 +56,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4453732904760208654, guid: eca1b66a6f380d34eb8c6eccc34ab314, type: 3}
       propertyPath: m_Name
-      value: Leftking_End
+      value: RoundEnd
       objectReference: {fileID: 0}
     - target: {fileID: 5089947505139221473, guid: eca1b66a6f380d34eb8c6eccc34ab314, type: 3}
       propertyPath: m_LocalPosition.x
@@ -89,6 +103,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eca1b66a6f380d34eb8c6eccc34ab314, type: 3}
+--- !u!95 &2455253242246335586 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 181236605332432888, guid: eca1b66a6f380d34eb8c6eccc34ab314, type: 3}
+  m_PrefabInstance: {fileID: 2346707921164512154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7363963880058300539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5089947505139221473, guid: eca1b66a6f380d34eb8c6eccc34ab314, type: 3}

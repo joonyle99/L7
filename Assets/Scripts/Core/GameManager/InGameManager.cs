@@ -17,7 +17,7 @@ public class InGameManager : MonoBehaviour
     [Space]
 
     [Header("0- Game Start")]
-    [SerializeField] private GameStartEffect _gameStartEffectPrefab;
+    [SerializeField] private AnimationEffect _gameStartEffectPrefab;
 
     [Space]
 
@@ -39,7 +39,7 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private StatBuffProjectile _statBuffProjectilePrefab;
     [SerializeField] private StatBuffPopup _statBuffPopupPrefab;
     [SerializeField] private HeroSellZone _heroSellZone;
-    [SerializeField] private UnlockEffect[] _unlockEffectPrefabs;
+    [SerializeField] private AnimationEffect[] _unlockEffectPrefabs;
     [SerializeField] private int _startGold = 20;
     [SerializeField] private int _sellPrice = 1;
     [SerializeField] private int _startToken = 3;
@@ -64,6 +64,7 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private BattleSlotController _enemySlotController;
     [SerializeField] private BattleKingController _battleKingController;
     [SerializeField] private BattlePlayer _battlePlayer;
+    [SerializeField] private RoundEndEffect _roundEndEffect;
     private BattleManager _battleManager;
     private RoundManager _roundManager;
     private BattleSimulator _battleSimulator;
@@ -236,18 +237,18 @@ public class InGameManager : MonoBehaviour
             _uiController.SetEnemyBench(enemyBench);
             SoundManager.Instance.PlayBgm(BgmType.Prepare);
 
-            Action<Action> prepareEffect = currRound == 1 ?
+            Action<Action> prepareAnimationEffect = currRound == 1 ?
                 callback => Instantiate(_gameStartEffectPrefab, Vector3.zero, Quaternion.identity).Play(callback)
                 : currRound <= 3 ?
                 callback => Instantiate(_unlockEffectPrefabs[currRound - 2], Vector3.zero, Quaternion.identity).Play(callback)
                 : null;
 
-            if (prepareEffect != null)
+            if (prepareAnimationEffect != null)
             {
                 _prepareCanvas?.gameObject.SetActive(false);
                 SetPrepareBlocked(true);
 
-                prepareEffect(() =>
+                prepareAnimationEffect(() =>
                 {
                     _prepareCanvas?.gameObject.SetActive(true);
                     SetPrepareBlocked(false);
@@ -288,28 +289,22 @@ public class InGameManager : MonoBehaviour
 
     private void OnBattleEndAfter(RoundOutcome roundOutcome)
     {
+        // 토근 개수 처리
         _tokenSystem.ApplyRoundOutcome(roundOutcome);
 
+        // 아직 라운드가 남아있으면 준비 페이즈로 이동
         if (_tokenSystem.PlayerTokens > 0 && _tokenSystem.EnemyTokens > 0)
         {
-            PlayRoundEndSequence(() =>
+            _roundEndEffect.Play(roundOutcome, () =>
             {
                 _roundManager.NextRound();
                 Prepare();
             });
         }
-    }
-
-    private void PlayRoundEndSequence(Action onComplete)
-    {
-        StartCoroutine(RoundEndSequenceCoroutine(onComplete));
-    }
-
-    private IEnumerator RoundEndSequenceCoroutine(Action onComplete)
-    {
-        // TODO: 라운드 종료 연출
-        yield return new WaitForSeconds(2f);
-        onComplete?.Invoke();
+        else
+        {
+            // TODO: 매치 종료 - 매치 연출 후, 로비로 이동
+        }
     }
 
     // ========== 연출 ==========

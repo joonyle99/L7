@@ -10337,7 +10337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7542643634518930431}
-  - component: {fileID: -6300384890186845311}
+  - component: {fileID: 4350071275258633732}
   m_Layer: 0
   m_Name: UnlockEffect_Myth
   m_TagString: Untagged
@@ -10361,7 +10361,7 @@ Transform:
   - {fileID: 6977371121636380351}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6300384890186845311
+--- !u!114 &4350071275258633732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10370,9 +10370,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5391524328478822867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a4ca0b750e2f843a2a33652b11ddf5, type: 3}
+  m_Script: {fileID: 11500000, guid: 734d97b4c700e0d42ba609f26988ee62, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UnlockEffect
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationEffect
 --- !u!1 &5887776437086837162
 GameObject:
   m_ObjectHideFlags: 0

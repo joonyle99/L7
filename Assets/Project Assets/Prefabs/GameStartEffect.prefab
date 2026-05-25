@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2473145143513075440}
-  - component: {fileID: 5661907519350644587}
+  - component: {fileID: 7033239987520807445}
   m_Layer: 0
   m_Name: GameStartEffect
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 861672760601946784}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5661907519350644587
+--- !u!114 &7033239987520807445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,9 +42,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2067480654961846107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89e00b2a2b048594da39e15e72366fb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 734d97b4c700e0d42ba609f26988ee62, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameStartEffect
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationEffect
 --- !u!1001 &2139063626665451745
 PrefabInstance:
   m_ObjectHideFlags: 0
