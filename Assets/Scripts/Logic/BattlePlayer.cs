@@ -31,8 +31,8 @@ public class BattlePlayer : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private StoneProjectile _stonePrefab;
-    [SerializeField] private StatBuffProjectile _statBuffPrefab;
+    [SerializeField] private StoneProjectile _stoneProjectilePrefab;
+    [SerializeField] private StatBuffProjectile _statBuffProjectilePrefab;
     [SerializeField] private StatBuffPopup _statBuffPopupPrefab;
     [SerializeField] private DamagePopup _damagePopupPrefab;
 
@@ -486,7 +486,7 @@ public class BattlePlayer : MonoBehaviour
         var start = casterSlot != null ? casterSlot.position : Vector3.zero;
         var end   = targetSlot != null ? targetSlot.position : start;
         var arrived = false;
-        var stone = Instantiate(_stonePrefab);
+        var stone = Instantiate(_stoneProjectilePrefab);
         stone.Launch(start, end, () => arrived = true);
         yield return new WaitUntil(() => arrived);
     }
@@ -502,7 +502,7 @@ public class BattlePlayer : MonoBehaviour
         var end   = targetSlot != null ? targetSlot.position : start;
 
         var arrived = false;
-        var projectile = Instantiate(_statBuffPrefab);
+        var projectile = Instantiate(_statBuffProjectilePrefab);
         projectile.Launch(start, end, evt.AbilityEffect, () => arrived = true);
         yield return new WaitUntil(() => arrived);
 
