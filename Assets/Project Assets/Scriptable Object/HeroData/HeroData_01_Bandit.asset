@@ -20,9 +20,9 @@ MonoBehaviour:
   BaseHealths: 1e0000000a0000000f000000
   Grade: 0
   Ability:
-    Trigger: 4
-    Effect: 11
-    Target: 0
+    Trigger: 0
+    Effect: 2
+    Target: 2
     Values: 010000000200000003000000
     Probability: 100
     FlavorText: "\uBD80\uC5F0 \uC124\uBA85\uC785\uB2C8\uB2E4"

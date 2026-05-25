@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour, IGameStateListener<InGameState>
     [SerializeField] private HUDPanel _hudPanel;
     [SerializeField] private ActionPanel _actionPanel;
     [SerializeField] private InfoPanel _infoPanel;
+    [SerializeField] private BlockPanel _blockPanel;
 
     [Space]
 
@@ -90,6 +91,8 @@ public class UIController : MonoBehaviour, IGameStateListener<InGameState>
     public void SetSummonCostText(int prevCost, int currCost) => _actionPanel.SetSummonCostText(prevCost, currCost);
     public void ShowToast(string message) => _toastPanel?.ShowToast(message);
     public void PlayPendingTokenEffects() => _hudPanel.PlayPendingTokenEffects();
+
+    public void SetBlock(bool block) => _blockPanel?.SetVisible(block);
 
     public void SetPlaybackState(bool isPlaying) => _controllerPanel.SetPlaybackState(isPlaying);
     public void SetAutoState(bool isActive) => _controllerPanel.SetAutoState(isActive);

@@ -25,6 +25,7 @@ public class PrepareManager
     private bool _isDragActive;
     public bool IsDragActive => _isDragActive;
     public bool SuppressHoverPanel { get; set; }
+    public bool IsLocked { get; set; }
     private HeroView _pendingDropView; // 드롭 성공 시 OnBenchChanged로 _lastHeroView가 파괴되므로, 미리 목적지 슬롯의 뷰를 저장해 PlayDropAnimation에 사용
 
     // drag hover color
@@ -117,6 +118,7 @@ public class PrepareManager
     
     public void Tick()
     {
+        if (IsLocked) return;
         if (_inputProvider.JustPressed) BeginDrag();
         else if (_inputProvider.IsDragging) UpdateDrag();
         else if (_inputProvider.JustReleased) EndDrag();

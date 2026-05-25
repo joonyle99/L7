@@ -12,6 +12,7 @@ public class SummonBenchManager : HeroBenchManagerBase
 
     private Func<int, bool> _trySpendGold;
     private Action<int, int> _onSummonCostChanged;
+    private Action<HeroInstance> _onHeroSummoned;
 
     private int _currCost;
     public int CurrCost => _currCost;
@@ -26,10 +27,11 @@ public class SummonBenchManager : HeroBenchManagerBase
         _currCost = _summonConfig.baseCost;
     }
 
-    public void Initialize(Func<int, bool> trySpendGold, Action<int, int> onSummonCostChanged)
+    public void Initialize(Func<int, bool> trySpendGold, Action<int, int> onSummonCostChanged, Action<HeroInstance> onHeroSummoned)
     {
         _trySpendGold = trySpendGold;
         _onSummonCostChanged = onSummonCostChanged;
+        _onHeroSummoned = onHeroSummoned;
     }
 
     // === 소환 ===
@@ -49,6 +51,7 @@ public class SummonBenchManager : HeroBenchManagerBase
         var currCost = prevCost + _summonConfig.costIncrement;
         _currCost = currCost;
         _onSummonCostChanged?.Invoke(prevCost, currCost);
+        _onHeroSummoned?.Invoke(heroInstance);
 
         return SummonResult.Success;
     }

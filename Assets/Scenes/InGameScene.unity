@@ -543,8 +543,8 @@ MonoBehaviour:
   _deathFlyY: 3
   _deathSpinAngle: 60
   _deathFlyDuration: 0.4
-  _stonePrefab: {fileID: 5999775810330552782, guid: 04bb39f7390374e48aff7e6026ef7ab4, type: 3}
-  _statBuffPrefab: {fileID: 4526009331033900444, guid: 8ea0fea5fa1cbf94899ac6c908a81fe2, type: 3}
+  _stoneProjectilePrefab: {fileID: 5999775810330552782, guid: 04bb39f7390374e48aff7e6026ef7ab4, type: 3}
+  _statBuffProjectilePrefab: {fileID: 4526009331033900444, guid: 8ea0fea5fa1cbf94899ac6c908a81fe2, type: 3}
   _statBuffPopupPrefab: {fileID: 4910592039385695480, guid: 59d8293aeac0cab4faf1d9867eca410b, type: 3}
   _damagePopupPrefab: {fileID: 6339425950915440582, guid: 4cc217aac76f98a48a6912fe2c45be11, type: 3}
 --- !u!1 &133895207 stripped
@@ -3729,6 +3729,107 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1116559298607714068, guid: fe5d841aa19636a4da7e9e8d07d11f02, type: 3}
   m_PrefabInstance: {fileID: 1116540195}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &543827257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 543827258}
+  - component: {fileID: 543827260}
+  - component: {fileID: 543827259}
+  - component: {fileID: 543827262}
+  - component: {fileID: 543827261}
+  m_Layer: 5
+  m_Name: Block Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &543827258
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543827257}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 711233020}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &543827259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543827257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &543827260
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543827257}
+  m_CullTransparentMesh: 1
+--- !u!114 &543827261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543827257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8374d1f8b2999fd488b2ddbcf5886a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlockPanel
+--- !u!225 &543827262
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543827257}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &549470761 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4061567080255233626, guid: fe5d841aa19636a4da7e9e8d07d11f02, type: 3}
@@ -4796,6 +4897,7 @@ RectTransform:
   - {fileID: 829028171}
   - {fileID: 2110632428}
   - {fileID: 266097829}
+  - {fileID: 543827258}
   m_Father: {fileID: 1540225787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9520,6 +9622,7 @@ MonoBehaviour:
   _hudPanel: {fileID: 829028174}
   _actionPanel: {fileID: 2110632431}
   _infoPanel: {fileID: 266097830}
+  _blockPanel: {fileID: 543827261}
   _controllerPanel: {fileID: 772720186}
   _touchPanel: {fileID: 1992704695}
   _toastPanel: {fileID: 448590986}
@@ -9873,6 +9976,8 @@ MonoBehaviour:
   _relicSlotController: {fileID: 1414856684}
   _prepareKingController: {fileID: 62753713}
   _summonTrailPrefab: {fileID: 2470463835472705757, guid: d027552a67c88c74bb0a3a7aceab9c76, type: 3}
+  _statBuffProjectilePrefab: {fileID: 4526009331033900444, guid: 8ea0fea5fa1cbf94899ac6c908a81fe2, type: 3}
+  _statBuffPopupPrefab: {fileID: 4910592039385695480, guid: 59d8293aeac0cab4faf1d9867eca410b, type: 3}
   _heroSellZone: {fileID: 217193380}
   _unlockEffectPrefabs:
   - {fileID: 2592651281421405052, guid: beb1afa508140434eb5aab2283e48702, type: 3}
@@ -9881,6 +9986,7 @@ MonoBehaviour:
   _sellPrice: 1
   _startToken: 3
   _prepareDuration: 30
+  _onSummonDelay: 0.6
   _battleCanvas: {fileID: 1114307641}
   _battleStage: {fileID: 1538554665}
   _cloudScrollers:

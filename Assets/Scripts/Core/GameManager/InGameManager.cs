@@ -31,17 +31,21 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private RelicSlotController _relicSlotController;
     [SerializeField] private PrepareKingController _prepareKingController;
     [SerializeField] private SummonTrail _summonTrailPrefab;
+    [SerializeField] private StatBuffProjectile _statBuffProjectilePrefab;
+    [SerializeField] private StatBuffPopup _statBuffPopupPrefab;
     [SerializeField] private HeroSellZone _heroSellZone;
     [SerializeField] private UnlockEffect[] _unlockEffectPrefabs;
     [SerializeField] private int _startGold = 20;
     [SerializeField] private int _sellPrice = 1;
     [SerializeField] private int _startToken = 3;
     [SerializeField] private float _prepareDuration = 30f;
+    [SerializeField] private float _onSummonDelay = 0.6f;
     private PrepareManager _prepareManager;
     private SummonBenchManager _summonBenchManager;
     private SquadBenchManager _squadBenchManager;
     private RelicBenchManager _relicBenchManager;
     private PrepareTimer _prepareTimer;
+    private Coroutine _onSummonCo;
 
     [Space]
     
@@ -93,7 +97,7 @@ public class InGameManager : MonoBehaviour
         _relicBenchManager = new RelicBenchManager(_relicDatabase, _relicConfig);
         _prepareManager = new PrepareManager(_inputProvider);
         _prepareTimer = new PrepareTimer(_prepareDuration);
-        _summonBenchManager.Initialize(_goldSystem.TrySpend, _uiController.SetSummonCostText);
+        _summonBenchManager.Initialize(_goldSystem.TrySpend, _uiController.SetSummonCostText, hero => OnHeroSummoned(hero));
         _squadBenchManager.Initialize();
         var infoPanel = _uiController.InfoPanel;
         _summonSlotController?.Initialize(
@@ -305,5 +309,92 @@ public class InGameManager : MonoBehaviour
         var startWorldPos = _uiController.GetSummonButtonWorldPos();
         trail.Launch(startWorldPos, endWorldPos, onComplete, visual.TrailColor);
         return true;
+    }
+
+    // ========== OnSummon 어빌리티 ==========
+
+    private void OnHeroSummoned(HeroInstance hero)
+    {
+        if (_onSummonCo != null) return;
+
+        var effects = new List<(HeroInstance target, AbilityEffect effect, int value)>();
+        PrepareAbilityExecutor.TryExecuteOnSummon(hero, _squadBenchManager.Bench,
+            (target, effect, value) => effects.Add((target, effect, value)));
+
+        if (effects.Count == 0) return;
+
+        _onSummonCo = StartCoroutine(OnSummonAbilityCo(hero, effects));
+    }
+
+    private IEnumerator OnSummonAbilityCo(HeroInstance hero, List<(HeroInstance target, AbilityEffect effect, int value)> effects)
+    {
+        _prepareManager.IsLocked = true;
+        _uiController.SetBlock(true);
+
+        yield return new WaitForSeconds(_onSummonDelay);
+
+        var startPos = GetHeroWorldPos(hero);
+        int remaining = effects.Count;
+
+        foreach (var (target, effect, value) in effects)
+        {
+            var endPos = GetHeroWorldPos(target);
+            var capturedTarget = target;
+            var capturedEffect = effect;
+            var capturedValue = value;
+            var capturedEnd = endPos;
+
+            var arrived = false;
+            var projectile = Instantiate(_statBuffProjectilePrefab);
+            projectile.Launch(startPos, endPos, effect, () => arrived = true);
+            yield return new WaitUntil(() => arrived);
+
+            var popup = Instantiate(_statBuffPopupPrefab, endPos, Quaternion.identity);
+            popup.Launch(capturedEffect, capturedValue, () =>
+            {
+                remaining--;
+                
+                if (remaining == 0)
+                {
+                    _prepareManager.IsLocked = false;
+                    _uiController.SetBlock(false);
+                    _onSummonCo = null;
+                }
+            });
+
+            var isBuff = capturedEffect is AbilityEffect.IncreaseAttack or AbilityEffect.IncreaseHealth or AbilityEffect.IncreaseAttackHealth;
+            if (isBuff) EffectManager.Instance.Play(VfxType.Ability, capturedEnd);
+
+            RefreshHeroView(capturedTarget, punch: true);
+        }
+    }
+
+    private Vector3 GetHeroWorldPos(HeroInstance hero)
+    {
+        for (int i = 0; i < _summonBenchManager.Bench.Length; i++)
+            if (_summonBenchManager.Bench[i] == hero) return _summonSlotController.GetItemWorldPosAt(i);
+        for (int i = 0; i < _squadBenchManager.Bench.Length; i++)
+            if (_squadBenchManager.Bench[i] == hero) return _squadSlotController.GetItemWorldPosAt(i);
+        return Vector3.zero;
+    }
+
+    private void RefreshHeroView(HeroInstance hero, bool punch = false)
+    {
+        for (int i = 0; i < _squadBenchManager.Bench.Length; i++)
+        {
+            if (_squadBenchManager.Bench[i] == hero)
+            {
+                _squadSlotController.GetViewAt(i)?.Refresh(hero.Attack, hero.Health, punch);
+                return;
+            }
+        }
+        for (int i = 0; i < _summonBenchManager.Bench.Length; i++)
+        {
+            if (_summonBenchManager.Bench[i] == hero)
+            {
+                _summonSlotController.GetViewAt(i)?.Refresh(hero.Attack, hero.Health, punch);
+                return;
+            }
+        }
     }
 }
