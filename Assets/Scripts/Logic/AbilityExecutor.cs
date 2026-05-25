@@ -27,7 +27,7 @@ public static class AbilityExecutor
         var selectedTargets = SelectTargets(ability.Target, caster, allies, enemies);
         if (selectedTargets.Count == 0) return; // 3. 실패: 능력의 대상이 존재하는지 체크
 
-        Debug.Log($"<color=#CE93D8>[Ability] {caster.Source.Data.Name} → {ability.Trigger} | {ability.Effect} | {ability.Target} | Value={ability.GetValue(caster.Source.Level)} | targets={selectedTargets.Count}</color> (cycle={cycle})");
+        // Debug.Log($"<color=#CE93D8>[Ability] {caster.Source.Data.Name} → {ability.Trigger} | {ability.Effect} | {ability.Target} | Value={ability.GetValue(caster.Source.Level)} | targets={selectedTargets.Count}</color> (cycle={cycle})");
 
         foreach (var target in selectedTargets)
         {
@@ -54,6 +54,35 @@ public static class AbilityExecutor
         }
     }
 
+    /// <summary>
+    /// 영웅이 피해를 받았을 때 아군들의 연쇄 트리거 처리
+    /// OnAllyHit: hitHero 제외 아군 전원 체크
+    /// OnPrevAllyHit: hitHero가 자신 앞에 있는 영웅 모두 트리거
+    /// OnPrevAllyOnlyHit: hitHero가 자신의 바로 앞 영웅인 경우만 트리거
+    /// </summary>
+    public static void TryExecuteAllyHitChain(
+        BattleHero hitHero,
+        BattleHero[] hitSide,
+        BattleHero[] otherSide,
+        BattleTimeline timeline,
+        int cycle)
+    {
+        bool isPlayer = IsPlayerSide(hitSide);
+        foreach (var hero in hitSide)
+        {
+            if (hero == null || !hero.IsAlive || hero == hitHero) continue;
+            TryExecute(hero, AbilityTrigger.OnAllyHit, hitSide, otherSide, timeline, cycle);
+
+            bool hitHeroIsInFront = isPlayer ? hitHero.SlotIdx > hero.SlotIdx : hitHero.SlotIdx < hero.SlotIdx;
+
+            if (hitHeroIsInFront)
+                TryExecute(hero, AbilityTrigger.OnPrevAllyHit, hitSide, otherSide, timeline, cycle);
+
+            if (FindPrev(hitSide, hero) == hitHero)
+                TryExecute(hero, AbilityTrigger.OnPrevAllyOnlyHit, hitSide, otherSide, timeline, cycle);
+        }
+    }
+
     // ========= 타겟 해석 =========
 
     private static List<BattleHero> SelectTargets(AbilityTarget target, BattleHero caster, BattleHero[] allies, BattleHero[] enemies)
@@ -63,7 +92,7 @@ public static class AbilityExecutor
         switch (target)
         {
             case AbilityTarget.Self:
-                if (caster.IsAlive) result.Add(caster);
+                result.Add(caster); // IsAlive 미체크 — OnDeath 등 죽은 상태에서도 Self 타겟 가능
                 break;
 
             case AbilityTarget.AllAllies:
@@ -169,34 +198,7 @@ public static class AbilityExecutor
         return result;
     }
 
-    /// <summary>
-    /// 영웅이 피해를 받았을 때 아군들의 연쇄 트리거 처리
-    /// OnAllyHit: hitHero 제외 아군 전원 체크
-    /// OnPrevAllyHit: hitHero가 자신 앞에 있는 영웅 모두 트리거
-    /// OnPrevAllyOnlyHit: hitHero가 자신의 바로 앞 영웅인 경우만 트리거
-    /// </summary>
-    public static void TryExecuteAllyHitChain(
-        BattleHero hitHero,
-        BattleHero[] hitSide,
-        BattleHero[] otherSide,
-        BattleTimeline timeline,
-        int cycle)
-    {
-        bool isPlayer = IsPlayerSide(hitSide);
-        foreach (var hero in hitSide)
-        {
-            if (hero == null || !hero.IsAlive || hero == hitHero) continue;
-            TryExecute(hero, AbilityTrigger.OnAllyHit, hitSide, otherSide, timeline, cycle);
-
-            bool hitHeroIsInFront = isPlayer ? hitHero.SlotIdx > hero.SlotIdx : hitHero.SlotIdx < hero.SlotIdx;
-            
-            if (hitHeroIsInFront)
-                TryExecute(hero, AbilityTrigger.OnPrevAllyHit, hitSide, otherSide, timeline, cycle);
-
-            if (FindPrev(hitSide, hero) == hitHero)
-                TryExecute(hero, AbilityTrigger.OnPrevAllyOnlyHit, hitSide, otherSide, timeline, cycle);
-        }
-    }
+    // ========= ... =========
 
     // Player: SlotIdx 높을수록 앞 / Enemy: SlotIdx 낮을수록 앞
     private static bool IsPlayerSide(BattleHero[] side)
@@ -204,6 +206,17 @@ public static class AbilityExecutor
         foreach (var h in side) if (h != null) return h.IsPlayer;
         return false;
     }
+
+    private static void Shuffle<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
+    }
+
+    // ========= ... =========
 
     // 가장 앞 생존 영웅 (caster 제외)
     private static BattleHero FindFront(BattleHero[] side, BattleHero exclude)
@@ -291,15 +304,6 @@ public static class AbilityExecutor
         return result;
     }
 
-    private static void Shuffle<T>(List<T> list)
-    {
-        for (int i = list.Count - 1; i > 0; i--)
-        {
-            int j = Random.Range(0, i + 1);
-            (list[i], list[j]) = (list[j], list[i]);
-        }
-    }
-
     // ========= 효과 적용 =========
 
     private static void ApplyEffect(AbilityData ability, BattleHero caster, BattleHero target, BattleHero[] allies, BattleHero[] enemies, BattleTimeline timeline, int cycle)
@@ -310,19 +314,16 @@ public static class AbilityExecutor
         {
             case AbilityEffect.IncreaseAttack:
                 target.CurrAttack += value;
-                // Debug.Log($"<color=#CE93D8>[Ability] {target.Source.Data.Name} 공격력 +{value} → {target.CurrAttack}</color>");
                 BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, value);
                 break;
 
             case AbilityEffect.DecreaseAttack:
                 target.CurrAttack = Mathf.Max(0, target.CurrAttack - value);
-                // Debug.Log($"<color=#CE93D8>[Ability] {target.Source.Data.Name} 공격력 -{value} → {target.CurrAttack}</color>");
                 BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, value);
                 break;
 
             case AbilityEffect.IncreaseHealth:
                 target.CurrHealth += value;
-                // Debug.Log($"<color=#CE93D8>[Ability] {target.Source.Data.Name} 체력 +{value} → {target.CurrHealth}</color>");
                 BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, value);
                 break;
 
@@ -334,7 +335,6 @@ public static class AbilityExecutor
 
             case AbilityEffect.DealDamage:
                 target.CurrHealth = Mathf.Max(0, target.CurrHealth - value);
-                // Debug.Log($"<color=#CE93D8>[Ability] {caster.Source.Data.Name} → {target.Source.Data.Name} 데미지 {value} | 남은 HP {target.CurrHealth}</color>");
                 BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, value);
                 TryExecute(target, AbilityTrigger.OnHit, enemies, allies, timeline, cycle);
                 TryExecuteAllyHitChain(target, enemies, allies, timeline, cycle);
@@ -349,7 +349,6 @@ public static class AbilityExecutor
 
             case AbilityEffect.BonusAttack:
                 value = caster.CurrAttack;
-                Debug.Log($"<color=#FF6F00>[BonusAttack]</color> {caster.Source.Data.Name} → {target.Source.Data.Name} | damage={value} | target HP {target.CurrHealth} → {target.CurrHealth - value}");
                 target.CurrHealth = Mathf.Max(0, target.CurrHealth - value);
                 BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, value);
                 TryExecute(target, AbilityTrigger.OnHit, enemies, allies, timeline, cycle);
@@ -363,9 +362,21 @@ public static class AbilityExecutor
                 }
                 break;
 
+            case AbilityEffect.Smash:
+                int smashDamage = target.CurrHealth;
+                target.CurrHealth = 0;
+                BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, smashDamage);
+                TryExecute(target, AbilityTrigger.OnHit, enemies, allies, timeline, cycle);
+                TryExecuteAllyHitChain(target, enemies, allies, timeline, cycle);
+                BattleRecorder.RecordDeath(timeline, cycle, target);
+                TryExecute(target, AbilityTrigger.OnDeath, enemies, allies, timeline, cycle);
+                TryExecuteAll(enemies, AbilityTrigger.OnAllyDeath, enemies, allies, timeline, cycle);
+                TryExecuteAll(allies, AbilityTrigger.OnEnemyDeath, allies, enemies, timeline, cycle);
+                break;
+
             case AbilityEffect.Pull:
-                var side = (target.IsPlayer == caster.IsPlayer) ? allies : enemies;
                 int idx = -1;
+                var side = (target.IsPlayer == caster.IsPlayer) ? allies : enemies;
                 for (int i = 0; i < side.Length; i++) if (side[i] == target) { idx = i; break; }
                 if (idx > 0)
                 {
@@ -381,26 +392,21 @@ public static class AbilityExecutor
                 BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, 0);
                 break;
 
+            case AbilityEffect.Summon:
+                var summonData = ability.SummonHero;
+                if (summonData == null) break;
+                var summonInstance = new HeroInstance(summonData);
+                var summonHero = new BattleHero(summonInstance, caster.SlotIdx, caster.IsPlayer);
+                for (int i = 0; i < allies.Length; i++) if (allies[i] == caster) { allies[i] = summonHero; break; }
+                BattleRecorder.RecordAbility(timeline, cycle, caster, summonHero, ability.Effect, 0);
+                break;
+
             case AbilityEffect.EarnGold:
                 caster.Source.GoldStack += value;
-                // Debug.Log($"<color=#CE93D8>[Ability] {caster.Source.Data.Name} 골드 스택 +{value} → {caster.Source.GoldStack}</color>");
                 BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, value);
                 break;
 
-            case AbilityEffect.Smash:
-                int smashDamage = target.CurrHealth;
-                target.CurrHealth = 0;
-                BattleRecorder.RecordAbility(timeline, cycle, caster, target, ability.Effect, smashDamage);
-                TryExecute(target, AbilityTrigger.OnHit, enemies, allies, timeline, cycle);
-                TryExecuteAllyHitChain(target, enemies, allies, timeline, cycle);
-                BattleRecorder.RecordDeath(timeline, cycle, target);
-                TryExecute(target, AbilityTrigger.OnDeath, enemies, allies, timeline, cycle);
-                TryExecuteAll(enemies, AbilityTrigger.OnAllyDeath, enemies, allies, timeline, cycle);
-                TryExecuteAll(allies, AbilityTrigger.OnEnemyDeath, allies, enemies, timeline, cycle);
-                break;
-
             default:
-                // Debug.Log($"<color=#CE93D8>[Ability] {ability.Effect} 미구현</color>");
                 break;
         }
     }

@@ -27,7 +27,6 @@ public enum AbilityEffect
     BonusAttack,
     Smash,
     Faint,
-    Push,
     Pull,
     Summon,
     EarnGold,
@@ -67,6 +66,7 @@ public struct AbilityData
     public int[] Values; // 레벨별 효과 수치 (index 0 = Lv1, 1 = Lv2, 2 = Lv3)
     public float Probability; // 발동 확률 (0 ~ 100)
     public string FlavorText; // 부연 설명
+    public HeroData SummonHero; // Summon 효과 시 소환할 영웅
 
     public int GetValue(int level)
     {

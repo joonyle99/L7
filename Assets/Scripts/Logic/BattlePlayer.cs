@@ -424,6 +424,13 @@ public class BattlePlayer : MonoBehaviour
             case AbilityEffect.Faint:
                 break;
 
+            case AbilityEffect.Summon:
+                var spawnPos = _battleManager.GetSlot(evt.Target.IsPlayer, evt.TargetSlotIdx)?.position ?? Vector3.zero;
+                _battleManager.Spawn(evt.Target);
+                EffectManager.Instance.Play(VfxType.Spawn, spawnPos);
+                // SoundManager.Instance.PlaySfx((SfxType)(SfxType.Summon_1 + UnityEngine.Random.Range(0, 4)));
+                break;
+
             case AbilityEffect.EarnGold:
                 targetView?.Refresh(evt.TargetAtk, evt.TargetHP);
                 break;

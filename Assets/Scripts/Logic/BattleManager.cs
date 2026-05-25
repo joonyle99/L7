@@ -39,8 +39,9 @@ public class BattleManager
 
     // ======== ... ========
 
-    private void Spawn(HeroInstance[] bench, BattleSlotController slotController, bool flipX = false)
+    private void Spawn(HeroInstance[] bench, BattleSlotController slotController)
     {
+        var flipX = slotController == _enemySlotController;
         for (int idx = 0; idx < bench.Length; idx++)
         {
             var hero = bench[idx];
@@ -48,6 +49,14 @@ public class BattleManager
             var heroView = slotController.SpawnHeroView(hero, idx, flipX);
             _heroViewMap[hero] = heroView;
         }
+    }
+
+    public HeroView Spawn(BattleHero hero)
+    {
+        var controller = hero.IsPlayer ? _playerSlotController : _enemySlotController;
+        var heroView = controller.SpawnHeroView(hero.Source, hero.SlotIdx, flipX: !hero.IsPlayer);
+        _heroViewMap[hero.Source] = heroView;
+        return heroView;
     }
 
     public void Clear()
@@ -87,7 +96,7 @@ public class BattleManager
         _enemyBench = enemyBench;
         
         Spawn(_playerBench, _playerSlotController);
-        Spawn(_enemyBench, _enemySlotController, flipX: true);
+        Spawn(_enemyBench, _enemySlotController);
 
         _playerSide = _playerBench.Select((hero, benchIdx) => (hero, benchIdx)).Where(x => x.hero != null).Select(x => new BattleHero(x.hero, x.benchIdx, isPlayer: true)).Reverse().ToArray();
         _enemySide = _enemyBench.Select((hero, benchIdx) => (hero, benchIdx)).Where(x => x.hero != null).Select(x => new BattleHero(x.hero, x.benchIdx, isPlayer: false)).ToArray();
