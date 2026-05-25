@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour, IGameStateListener<InGameState>
 {
     [SerializeField] private HUDPanel _hudPanel;
+    [SerializeField] private EnemyPanel _enemyPanel;
     [SerializeField] private ActionPanel _actionPanel;
     [SerializeField] private InfoPanel _infoPanel;
-    [SerializeField] private BlockPanel _blockPanel;
+    [SerializeField] private PrepareBlockPanel _prepareBlockPanel;
 
     [Space]
 
@@ -88,11 +89,11 @@ public class UIController : MonoBehaviour, IGameStateListener<InGameState>
     public void SetTimerText(float seconds) => _hudPanel.SetTimerText(seconds);
     public void SetRoundText(int round) => _hudPanel.SetRoundText(round);
     public void SetTokens(int playerTokens, int enemyTokens) => _hudPanel.SetTokens(playerTokens, enemyTokens);
+    public void SetEnemyBench(HeroInstance[] bench) => _enemyPanel.SetEnemyBench(bench);
     public void SetSummonCostText(int prevCost, int currCost) => _actionPanel.SetSummonCostText(prevCost, currCost);
     public void ShowToast(string message) => _toastPanel?.ShowToast(message);
     public void PlayPendingTokenEffects() => _hudPanel.PlayPendingTokenEffects();
-
-    public void SetBlock(bool block) => _blockPanel?.SetVisible(block);
+    public void SetPrepareBlocked(bool block) => _prepareBlockPanel?.SetVisible(block);
 
     public void SetPlaybackState(bool isPlaying) => _controllerPanel.SetPlaybackState(isPlaying);
     public void SetAutoState(bool isActive) => _controllerPanel.SetAutoState(isActive);

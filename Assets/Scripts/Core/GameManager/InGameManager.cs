@@ -16,6 +16,11 @@ public class InGameManager : MonoBehaviour
 
     [Space]
 
+    [Header("0- Game Start")]
+    [SerializeField] private GameStartEffect _gameStartEffectPrefab;
+
+    [Space]
+
     [Header("1- Prepare Phase")]
     [SerializeField] private Canvas _prepareCanvas;
     [SerializeField] private GameObject _prepareStage;
@@ -159,7 +164,7 @@ public class InGameManager : MonoBehaviour
         _roundManager.Initialize(_uiController.SetRoundText);
         _uiController.Initialize(
             _startToken,
-            () =>
+            () => // onSummonClicked
             {
                 var summonResult = _summonBenchManager.TrySummon(_roundManager.CurrRound);
                 if (summonResult == SummonResult.Success)
@@ -172,7 +177,7 @@ public class InGameManager : MonoBehaviour
                     SoundManager.Instance.PlaySfx(SfxType.UI_Fail2);
                 }
             },
-            () =>
+            () => // onBattleClicked
             {
                 var hasAnyHero = _squadBenchManager.Bench.Any(hero => hero != null);
                 if (hasAnyHero)
@@ -219,24 +224,33 @@ public class InGameManager : MonoBehaviour
         _battleCanvas?.gameObject.SetActive(curr == InGameState.Battle || curr == InGameState.RoundEnd || curr == InGameState.MatchEnd);
 
         var currRound = _roundManager.CurrRound;
+        var roundData = _roundManager.GetCurrRoundData();
+        var playerBench = _squadBenchManager.Bench.ToArray();
+        var enemyBench = roundData.enemyHeroes.Select(entry => entry.data != null ? new HeroInstance(entry.data, entry.level) : null).ToArray();
 
         if (curr == InGameState.Prepare)
         {
             _goldSystem.SetGold(_startGold);
             _summonBenchManager.ResetCost();
             _prepareKingController.StartCycle();
+            _uiController.SetEnemyBench(enemyBench);
             SoundManager.Instance.PlayBgm(BgmType.Prepare);
 
-            if (currRound == 2 || currRound == 3)
-            {
-                _prepareStage?.SetActive(false);
-                _prepareCanvas?.gameObject.SetActive(false);
+            Action<Action> prepareEffect = currRound == 1 ?
+                callback => Instantiate(_gameStartEffectPrefab, Vector3.zero, Quaternion.identity).Play(callback)
+                : currRound <= 3 ?
+                callback => Instantiate(_unlockEffectPrefabs[currRound - 2], Vector3.zero, Quaternion.identity).Play(callback)
+                : null;
 
-                var unlockEffect = Instantiate(_unlockEffectPrefabs[currRound - 2], Vector3.zero, Quaternion.identity);
-                unlockEffect.Play(() =>
+            if (prepareEffect != null)
+            {
+                _prepareCanvas?.gameObject.SetActive(false);
+                SetPrepareBlocked(true);
+
+                prepareEffect(() =>
                 {
-                    _prepareStage?.SetActive(true);
                     _prepareCanvas?.gameObject.SetActive(true);
+                    SetPrepareBlocked(false);
 
                     _uiController.PlayPendingTokenEffects();
                 });
@@ -251,10 +265,6 @@ public class InGameManager : MonoBehaviour
             _summonBenchManager.ClearBench();
             foreach (var scroller in _cloudScrollers) scroller.ResetPosition();
             SoundManager.Instance.PlayBgm(BgmType.Battle, 0.1f);
-
-            var playerBench = _squadBenchManager.Bench.ToArray();
-            var roundData = _roundManager.GetCurrRoundData();
-            var enemyBench = roundData.enemyHeroes.Select(entry => entry.data != null ? new HeroInstance(entry.data, entry.level) : null).ToArray();
 
             Debug.Log($"<color=#FF8C00>[Battle] ===== 라운드 {currRound} 시작 =====</color>");
 
@@ -347,8 +357,7 @@ public class InGameManager : MonoBehaviour
         Vector3 startPos,
         Action onDone)
     {
-        _prepareManager.IsLocked = true;
-        _uiController.SetBlock(true);
+        SetPrepareBlocked(true);
 
         yield return new WaitForSeconds(_onSummonDelay);
 
@@ -373,8 +382,7 @@ public class InGameManager : MonoBehaviour
                 remaining--;
                 if (remaining == 0)
                 {
-                    _prepareManager.IsLocked = false;
-                    _uiController.SetBlock(false);
+                    SetPrepareBlocked(false);
                     onDone?.Invoke();
                 }
             });
@@ -384,6 +392,14 @@ public class InGameManager : MonoBehaviour
             var isBuff = capturedEffect is AbilityEffect.IncreaseAttack or AbilityEffect.IncreaseHealth or AbilityEffect.IncreaseAttackHealth;
             if (isBuff) EffectManager.Instance.Play(VfxType.Ability, capturedEnd);
         }
+    }
+
+    // ========== ... ==========
+
+    private void SetPrepareBlocked(bool blocked)
+    {
+        _prepareManager.IsLocked = blocked;
+        _uiController.SetPrepareBlocked(blocked);
     }
 
     // ========== ... ==========

@@ -24,7 +24,7 @@ public abstract class HeroBenchManagerBase : BenchManagerBase<HeroInstance>
         var srcStack = (srcHero.Level - 1) * srcHero.Data.MaxStack + srcHero.Stack + 1;
         var prevLevel = dstHero.Level;
         dstHero.AbsorbStack(srcStack);
-        var isLevelUp = dstHero.Level > prevLevel;
+        var isLevelUp = dstHero.Level > prevLevel && dstHero.Level > srcHero.Level;
 
         _onMerge?.Invoke(dstIdx, isLevelUp);
         return true;
