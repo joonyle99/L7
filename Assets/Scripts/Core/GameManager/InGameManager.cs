@@ -46,6 +46,7 @@ public class InGameManager : MonoBehaviour
     private RelicBenchManager _relicBenchManager;
     private PrepareTimer _prepareTimer;
     private Coroutine _onSummonCo;
+    private Coroutine _onSoldCo;
 
     [Space]
     
@@ -122,12 +123,13 @@ public class InGameManager : MonoBehaviour
             _squadSlotController, 
             _relicSlotController, 
             _heroSellZone, 
-            hero =>
+            (hero, slotPos) => // onHeroSold
             {
+                OnHeroSold(hero, slotPos);
                 _goldSystem.AddGold(_sellPrice * hero.Level + hero.GoldStack);
                 hero.GoldStack = 0;
             },
-            (hero, isDrag, worldPos) =>
+            (hero, isDrag, worldPos) => // onHeroSelected
             {
                 if (hero == null) return;
                 _heroSellZone.gameObject.SetActive(isDrag);
@@ -139,7 +141,7 @@ public class InGameManager : MonoBehaviour
                     SoundManager.Instance.PlaySfx(SfxType.UI_Select, 0.3f);
                 }
             },
-            () =>
+            () => // onHeroDeselected
             {
                 _heroSellZone.gameObject.SetActive(false);
                 _squadSlotController.SetActivePoints(false, null);
@@ -311,7 +313,7 @@ public class InGameManager : MonoBehaviour
         return true;
     }
 
-    // ========== OnSummon 어빌리티 ==========
+    // ========== OnSummon / OnSold 어빌리티 ==========
 
     private void OnHeroSummoned(HeroInstance hero)
     {
@@ -323,17 +325,33 @@ public class InGameManager : MonoBehaviour
 
         if (effects.Count == 0) return;
 
-        _onSummonCo = StartCoroutine(OnSummonAbilityCo(hero, effects));
+        _onSummonCo = StartCoroutine(PrepareAbilityCo(effects, GetHeroWorldPos(hero), () => _onSummonCo = null));
     }
 
-    private IEnumerator OnSummonAbilityCo(HeroInstance hero, List<(HeroInstance target, AbilityEffect effect, int value)> effects)
+    private void OnHeroSold(HeroInstance hero, Vector3 slotPos)
+    {
+        if (_onSoldCo != null) return;
+
+        var effects = new List<(HeroInstance target, AbilityEffect effect, int value)>();
+        PrepareAbilityExecutor.TryExecuteOnSold(hero, _squadBenchManager.Bench,
+            (target, effect, value) => effects.Add((target, effect, value)));
+
+        if (effects.Count == 0) return;
+
+        _onSoldCo = StartCoroutine(PrepareAbilityCo(effects, slotPos, () => _onSoldCo = null));
+    }
+
+    // startPos이 있으면 프로젝타일 발사 후 팝업, 없으면 팝업만
+    private IEnumerator PrepareAbilityCo(
+        List<(HeroInstance target, AbilityEffect effect, int value)> effects,
+        Vector3 startPos,
+        Action onDone)
     {
         _prepareManager.IsLocked = true;
         _uiController.SetBlock(true);
 
         yield return new WaitForSeconds(_onSummonDelay);
 
-        var startPos = GetHeroWorldPos(hero);
         int remaining = effects.Count;
 
         foreach (var (target, effect, value) in effects)
@@ -353,21 +371,22 @@ public class InGameManager : MonoBehaviour
             popup.Launch(capturedEffect, capturedValue, () =>
             {
                 remaining--;
-                
                 if (remaining == 0)
                 {
                     _prepareManager.IsLocked = false;
                     _uiController.SetBlock(false);
-                    _onSummonCo = null;
+                    onDone?.Invoke();
                 }
             });
 
+            RefreshHeroView(capturedTarget, punch: true);
+
             var isBuff = capturedEffect is AbilityEffect.IncreaseAttack or AbilityEffect.IncreaseHealth or AbilityEffect.IncreaseAttackHealth;
             if (isBuff) EffectManager.Instance.Play(VfxType.Ability, capturedEnd);
-
-            RefreshHeroView(capturedTarget, punch: true);
         }
     }
+
+    // ========== ... ==========
 
     private Vector3 GetHeroWorldPos(HeroInstance hero)
     {

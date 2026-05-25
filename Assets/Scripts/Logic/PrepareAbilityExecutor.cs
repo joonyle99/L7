@@ -4,6 +4,26 @@ using System.Collections.Generic;
 
 public static class PrepareAbilityExecutor
 {
+    public static void TryExecuteOnSold(HeroInstance caster, HeroInstance[] squadBench, Action<HeroInstance, AbilityEffect, int> onEffectApplied = null)
+    {
+        var ability = caster.Data.Ability;
+        if (ability.Trigger != AbilityTrigger.OnSold) return;
+        if (UnityEngine.Random.value * 100f > ability.Probability) return;
+
+        var targets = SelectTargets(ability.Target, caster, squadBench);
+        if (targets.Count == 0) return;
+
+        int value = ability.GetValue(caster.Level);
+
+        Debug.Log($"<color=#CE93D8>[PrepareAbility] {caster.Data.Name} → {ability.Trigger} | {ability.Effect} | {ability.Target} | Value={value} | targets={targets.Count}</color>");
+
+        foreach (var target in targets)
+        {
+            ApplyEffect(ability.Effect, caster, target, value);
+            onEffectApplied?.Invoke(target, ability.Effect, value);
+        }
+    }
+
     public static void TryExecuteOnSummon(HeroInstance caster, HeroInstance[] squadBench, Action<HeroInstance, AbilityEffect, int> onEffectApplied)
     {
         var ability = caster.Data.Ability;

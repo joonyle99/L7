@@ -47,7 +47,7 @@ public class PrepareManager
 
     // sold
     private HeroSellZone _heroSellZone;
-    private Action<HeroInstance> _onHeroSold;
+    private Action<HeroInstance, Vector3> _onHeroSold;
 
     // ========= 유물 =========
 
@@ -71,9 +71,9 @@ public class PrepareManager
         HeroSlotController squadSlotController,
         RelicSlotController relicSlotController,
         HeroSellZone heroSellZone,
-        Action<HeroInstance> onHeroSold = null,
-        Action<HeroInstance, bool, Vector3> onHeroSelected = null,
-        Action onHeroDeselected = null)
+        Action<HeroInstance, Vector3> onHeroSold,
+        Action<HeroInstance, bool, Vector3> onHeroSelected ,
+        Action onHeroDeselected )
     {
         _summonBenchManager = summonBenchManager;
         _squadBenchManager = squadBenchManager;
@@ -566,10 +566,11 @@ public class PrepareManager
         if (heroInstance == null) return false;
 
         var slotController = fromSummon ? _summonSlotController : _squadSlotController;
-        EffectManager.Instance.Play(VfxType.Sell, slotController.GetItemWorldPosAt(srcIdx));
+        var slotPos = slotController.GetItemWorldPosAt(srcIdx);
+        EffectManager.Instance.Play(VfxType.Sell, slotPos);
         SoundManager.Instance.PlaySfx(SfxType.Sell);
 
-        _onHeroSold?.Invoke(heroInstance);
+        _onHeroSold?.Invoke(heroInstance, slotPos);
         return true;
     }
 }
